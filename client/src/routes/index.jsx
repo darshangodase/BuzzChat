@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Register from "../pages/register";
-import Home from "../pages/home";
-import Login from "../pages/login";
-import CheckEmail from "../pages/checkEmail";
+import LandingPage from "../pages/landingpage";
+import LoginPassword from "../pages/loginPassword";
+import LoginEmail from "../pages/loginEmail";
 import MessagePage from "../components/messagePage";
 import AuthLayouts from "../layout/index";
 
@@ -18,16 +18,17 @@ const router = createBrowserRouter([
                 
             },
             {
-                path: "email",
-                element: <AuthLayouts><CheckEmail /></AuthLayouts>
+                path: "login-email",
+                element: <AuthLayouts><LoginEmail/></AuthLayouts>
             },
             {
-                path: "login",
-                element: <AuthLayouts><Login /></AuthLayouts>
+                path: "login-password",
+                element: <AuthLayouts><LoginPassword/></AuthLayouts>
             },
             {
                 path: "",
-                element: <AuthLayouts><Home /></AuthLayouts>,
+                element:<LandingPage />,
+
                 children: [
                     {
                         path: ":userId",
