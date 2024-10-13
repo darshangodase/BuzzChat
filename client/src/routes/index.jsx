@@ -5,27 +5,29 @@ import Home from "../pages/home";
 import Login from "../pages/login";
 import CheckEmail from "../pages/checkEmail";
 import MessagePage from "../components/messagePage";
+import AuthLayouts from "../layout/index";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />, // Parent route
+        element: <App />, 
         children: [
             {
                 path: "register",
-                element: <Register />
+                element: <AuthLayouts><Register /></AuthLayouts>
+                
             },
             {
                 path: "email",
-                element: <CheckEmail />
+                element: <AuthLayouts><CheckEmail /></AuthLayouts>
             },
             {
                 path: "login",
-                element: <Login />
+                element: <AuthLayouts><Login /></AuthLayouts>
             },
             {
-                path: "home",
-                element: <Home />,
+                path: "",
+                element: <AuthLayouts><Home /></AuthLayouts>,
                 children: [
                     {
                         path: ":userId",
