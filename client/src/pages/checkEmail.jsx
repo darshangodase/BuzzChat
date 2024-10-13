@@ -1,6 +1,6 @@
 import React from 'react'
 
-function register() {
+function CheckEmail() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function register() {
   )
 }
 
-export default register
+export default CheckEmail;
