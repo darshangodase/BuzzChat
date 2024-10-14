@@ -1,46 +1,78 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Lock } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
 const LoginPassword = () => {
-  const [password, setPassword] = useState('');
+  const [data, setData] = useState({
+    password: "",
+    userId: ""
+  });
+
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const userId = location?.state?.userId;
+    
+    if (!userId) {
+      navigate('/login-email');
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        userId: userId
+      }));
+    }
+  }, [location, navigate]);
+
 
   const handleRegister = () => {
     navigate('/register');
   };
 
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const userId = localStorage.getItem('userId');
-    if (!userId) {
-      toast.error('User ID not found. Please login again.');
-      navigate('/login-email');
-      return;
-    }
+
+    console.log("Data on submit:", data);
+
     const URL = `${import.meta.env.VITE_BACKEND_URL}/api/login-password`;
     try {
-      const response = await axios.post(URL, { password, userId });
+      const response = await axios.post(URL, {
+        userId: data.userId,
+        password: data.password,
+      }, {
+        withCredentials: true,
+      });
+
       toast.success(response.data.message);
-      if (response.data.success) {
+
+      if(response.data.success) {
         navigate('/');
       }
-    } catch 
-     (error) {
-      toast.error(error?.response?.data?.message)
-    } 
-    finally {
-      setPassword('');
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setData((prevData) => ({
+        ...prevData,
+        password: ""
+      }));
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen px-4 flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+    <div className="min-h-screen px-4 flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-teal-50">
       <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
         <div className="text-center mb-8">
           <Lock className="w-12 h-12 text-purple-500 mx-auto mb-4" />
@@ -54,18 +86,20 @@ const LoginPassword = () => {
             </label>
             <input
               id="password"
+              name="password"
               type="password"
               placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={data.password}
+              onChange={handleOnChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-              required/>
+              required
+            />
           </div>
           <button
             type="submit"
             className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 flex items-center justify-center"
-            disabled={isLoading}>
-
+            disabled={isLoading}
+          >
             {isLoading ? (
               <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

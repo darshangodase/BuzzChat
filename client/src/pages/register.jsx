@@ -81,7 +81,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen px-6 flex flex-col items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 ">
+    <div className="min-h-screen px-6 flex flex-col items-center justify-center bg-gradient-to-br from-rose-50 via-white to-teal-50">
       <h3 className="mb-8 text-gray-50 font-bold text-2xl">Welcome To BuzzChat</h3>
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md ">
         <div className="text-center mb-6">

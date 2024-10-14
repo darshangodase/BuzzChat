@@ -8,36 +8,32 @@ const LoginEmail = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  
 
   const handleRegister = () => {
     navigate('/register');
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const URL = `${import.meta.env.VITE_BACKEND_URL}/api/login-email`;
     try {
-      
-      const response = await axios.post(URL,{email})
-      toast.success(response.data.message)
-      localStorage.setItem('userId', response.data.userId); 
-      if(response.data.success)
-        {
-          navigate('/login-password');
-        }
+      const response = await axios.post(URL, { email });
+      toast.success(response.data.message);
+
+      if (response.data.success) {
+        navigate('/login-password', { state: { userId: response.data.userId } });
+      }
     } catch (error) {
-      toast.error(error?.response?.data?.message)
-    } 
-    finally {
+      toast.error(error?.response?.data?.message);
+    } finally {
       setEmail('');
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen px-4 flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+    <div className="min-h-screen px-4 flex items-center justify-center bg-gradient-to-br from-rose-50 via-white to-teal-50">
       <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
         <div className="text-center mb-8">
           <Mail className="w-12 h-12 text-purple-500 mx-auto mb-4" />

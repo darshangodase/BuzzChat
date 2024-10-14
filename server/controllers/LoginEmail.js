@@ -13,7 +13,7 @@ async function LoginEmail(req, res) {
     }
     return res
       .status(200)
-      .json({ message: "Email Verified", success: true, userId: checkemail._id });
+      .json({ message: "Email Verified", success: true, userId: checkemail._id ,data:checkemail });
   } 
   catch (err) {
     return res.status(500).json({ message: err.message });

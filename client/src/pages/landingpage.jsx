@@ -16,8 +16,8 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
-      <header className="bg-white shadow-md">
+    <div className="min-h-screen  bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+      <header className="bg-gradient-to-r from-rose-100 to-teal-100">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-3">
         <img src={logo} alt="chat app image" className="h-12 w-12" />
@@ -37,9 +37,10 @@ const LandingPage = () => {
           </button>
         </div>
       </header>
+      <div className="bg-white py-8"></div>
 
-      <main>
-        <section className="container mx-auto px-4 py-16 text-center">
+      <main className=''>
+        <section className="container mx-auto px-4 py-32 text-center">
           <h1 className="text-5xl font-bold mb-6 text-indigo-800">Connect Instantly with BuzzChat</h1>
           <p className="text-xl mb-8 text-gray-700">Experience seamless, secure, and free messaging with friends and family.</p>
           <button onClick={handleGetStarted}className="bg-indigo-600 text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-lg">
@@ -70,7 +71,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section id="about" className="py-16 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+        <section id="about" className="py-14 mb-16 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-indigo-800">About BuzzChat</h2>
             <div className="flex flex-col md:flex-row items-center justify-between">
@@ -86,9 +87,6 @@ const LandingPage = () => {
                   Our commitment to privacy and user experience drives everything we do. Join us in making the world a more 
                   connected place, one message at a time.
                 </p>
-                <button className="bg-indigo-600 text-white px-6 py-2 rounded-full text-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-lg flex items-center">
-                  Learn More <ArrowRight className="ml-2 h-5 w-5" />
-                </button>
               </div>
             </div>
           </div>
