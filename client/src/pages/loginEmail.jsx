@@ -21,10 +21,11 @@ const LoginEmail = () => {
       const response = await axios.post(URL, { email });
       toast.success(response.data.message);
 
-      if (response.data.success) {
+      if(response.data.success) {
         navigate('/login-password', { state: { userId: response.data.userId } });
       }
-    } catch (error) {
+    } 
+    catch (error) {
       toast.error(error?.response?.data?.message);
     } finally {
       setEmail('');

@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Lock } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../redux/userSlice';
 
 const LoginPassword = () => {
   const [data, setData] = useState({
@@ -13,10 +15,11 @@ const LoginPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const userId = location?.state?.userId;
-    
+
     if (!userId) {
       navigate('/login-email');
     } else {
@@ -44,25 +47,29 @@ const LoginPassword = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    console.log("Data on submit:", data);
-
     const URL = `${import.meta.env.VITE_BACKEND_URL}/api/login-password`;
     try {
       const response = await axios.post(URL, {
         userId: data.userId,
         password: data.password,
-      }, {
+      }, 
+      {
         withCredentials: true,
       });
 
       toast.success(response.data.message);
 
-      if(response.data.success) {
-        navigate('/');
+      if(response.data.success)
+        {
+        dispatch(setToken(response?.data?.token))
+        localStorage.setItem('token',response?.data?.token)
+        navigate('/home')
       }
-    } catch (error) {
+    } 
+    catch (error) {
       toast.error(error?.response?.data?.message);
-    } finally {
+    } 
+    finally {
       setData((prevData) => ({
         ...prevData,
         password: ""

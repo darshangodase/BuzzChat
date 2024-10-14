@@ -6,7 +6,7 @@ import { useNavigate,Link } from 'react-router-dom';
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-
+   
   const handleGetStarted = () => {
     navigate('/login-email');
   };
@@ -50,22 +50,22 @@ const LandingPage = () => {
 
         <section id="features" className="bg-white py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12 text-indigo-800">Why Choose BuzzChat?</h2>
+            <h2 className="text-3xl font-bold text-center mb-12 text-indigo-800">Why Choose BuzzChat ?</h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-                <Zap className="h-12 w-12 text-indigo-600 mb-4" />
+              <div className="flex flex-col items-center bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
+                <Zap className="h-12 w-12 text-indigo-600 mb-4 mx-auto"/>
                 <h3 className="text-xl font-semibold mb-2 text-indigo-800">Lightning Fast</h3>
-                <p className="text-gray-700">Experience real-time messaging with zero lag.</p>
+                <p className=" text-center text-gray-700">Experience real-time messaging with zero lag.</p>
               </div>
-              <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-                <Lock className="h-12 w-12 text-purple-600 mb-4" />
+              <div className="flex flex-col items-center bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
+                <Lock className="h-12 w-12 text-purple-600 mb-4 mx-auto" />
                 <h3 className="text-xl font-semibold mb-2 text-purple-800">Secure Chats</h3>
-                <p className="text-gray-700">Your conversations are protected with end-to-end encryption.</p>
+                <p className="text-center text-gray-700">Your conversations are protected with end-to-end encryption.</p>
               </div>
-              <div className="bg-gradient-to-br from-pink-50 to-indigo-50 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-                <MessageCircle className="h-12 w-12 text-pink-600 mb-4" />
+              <div className=" flex flex-col items-center bg-gradient-to-br from-pink-50 to-indigo-50 p-6 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
+                <MessageCircle className="h-12 w-12 text-pink-600 mb-4 "/>
                 <h3 className="text-xl font-semibold mb-2 text-pink-800">User-Friendly</h3>
-                <p className="text-gray-700">Intuitive interface for effortless communication.</p>
+                <p className="text-gray-700 text-center">Intuitive interface for effortless communication.</p>
               </div>
             </div>
           </div>

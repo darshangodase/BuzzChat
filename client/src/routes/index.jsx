@@ -4,6 +4,7 @@ import Register from "../pages/register";
 import LandingPage from "../pages/landingpage";
 import LoginPassword from "../pages/loginPassword";
 import LoginEmail from "../pages/loginEmail";
+import Home from "../pages/home";
 import MessagePage from "../components/messagePage";
 import AuthLayouts from "../layout/index";
 
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element:<LandingPage />,
-
+            },
+            {
+                path: "home",
+                element: <AuthLayouts><Home/></AuthLayouts>,
                 children: [
                     {
                         path: ":userId",

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { UserPlus, ArrowRight, Upload, X } from 'lucide-react';
+import { UserPlus, Upload, X } from 'lucide-react';
 import uploadFile from '../helpers/uploadFile';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -30,7 +30,6 @@ const RegisterPage = () => {
   const handleUploadPhoto = async(e) => {
     const file = e.target.files[0];
     const uploadPhoto = await uploadFile(file)
-    console.log(uploadPhoto);
     setUploadPhoto(file);
     setData((preve)=>{
       return{
@@ -53,7 +52,6 @@ const RegisterPage = () => {
     const URL = `${import.meta.env.VITE_BACKEND_URL}/api/register`
     try {
         const response = await axios.post(URL,data)
-        console.log("response",response)
         toast.success(response.data.message)
         if(response.data.success)
           {

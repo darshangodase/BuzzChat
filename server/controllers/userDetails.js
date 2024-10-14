@@ -2,7 +2,7 @@ const getUserDetails = require("../helpers/getuserdetails");
 
 async function userDetails(req, res) {
     try {
-        const token = req.cookies.token || "";
+        const token = req.cookies.token;
         const user = await getUserDetails(token);
         return res.status(200).json({
             message: "User details fetched successfully",
