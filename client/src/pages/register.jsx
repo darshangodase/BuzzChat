@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserPlus, ArrowRight, Upload, X } from 'lucide-react';
 import uploadFile from '../helpers/uploadFile';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -10,6 +12,7 @@ const RegisterPage = () => {
     password: '',
     profile_pic:''
   });
+
   const [uploadPhoto, setUploadPhoto] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -27,6 +30,7 @@ const RegisterPage = () => {
   const handleUploadPhoto = async(e) => {
     const file = e.target.files[0];
     const uploadPhoto = await uploadFile(file)
+    console.log(uploadPhoto);
     setUploadPhoto(file);
     setData((preve)=>{
       return{
@@ -36,19 +40,35 @@ const RegisterPage = () => {
     })
   };
 
-
   const handleClearUploadPhoto = (e) => {
     e.preventDefault();
     setUploadPhoto(null);
   };
-
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
-    console.log(data);
-    setIsLoading(false);
 
+    const URL = `${import.meta.env.VITE_BACKEND_URL}/api/register`
+    try {
+        const response = await axios.post(URL,data)
+        console.log("response",response)
+        toast.success(response.data.message)
+        if(response.data.success)
+          {
+            setData({
+              name : "",
+              email : "",
+              password : "",
+              profile_pic : ""
+            })
+            setIsLoading(false);
+            navigate('/login-email')
+        }
+    } catch (error) {
+        toast.error(error.message)
+    }
   };
 
   return (
@@ -120,11 +140,7 @@ const RegisterPage = () => {
               </button>
             )}
           </div>
-
-          {error && (
-            <p className="text-red-500 text-xs">{error}</p>
-          )}
-
+          
           <button
             type="submit"
             className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 flex items-center justify-center text-sm"
