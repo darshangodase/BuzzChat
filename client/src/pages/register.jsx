@@ -63,11 +63,20 @@ const RegisterPage = () => {
               password : "",
               profile_pic : ""
             })
-            setIsLoading(false);
             navigate('/login-email')
-        }
+            setIsLoading(false);
+            setUploadPhoto("");
+          }
     } catch (error) {
-        toast.error(error.message)
+        toast.error(error?.response?.data?.message)
+        setIsLoading(false);
+        setData({
+          name : "",
+          email : "",
+          password : "",
+          profile_pic : ""
+        })
+        setUploadPhoto("");
     }
   };
 
@@ -140,7 +149,6 @@ const RegisterPage = () => {
               </button>
             )}
           </div>
-          
           <button
             type="submit"
             className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 flex items-center justify-center text-sm"
@@ -153,7 +161,6 @@ const RegisterPage = () => {
             ) : (
               <>
                 Create Account
-                <ArrowRight className="ml-2 w-4 h-4" />
               </>
             )}
           </button>

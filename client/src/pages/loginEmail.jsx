@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, ArrowRight } from 'lucide-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const LoginEmail = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
   
 
   const handleRegister = () => {
     navigate('/register');
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
-
+    const URL = `${import.meta.env.VITE_BACKEND_URL}/api/login-email`;
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulated delay
       
-      // For demo purposes, let's assume any email ending with @example.com is valid
-      if (email.endsWith('@gmail.com')) {
-        navigate(`/password?email=${encodeURIComponent(email)}`);
-      } else {
-        setError('Email not found. Please try again.');
-      }
+      const response = await axios.post(URL,{email})
+      toast.success(response.data.message)
+      localStorage.setItem('userId', response.data.userId); 
+      if(response.data.success)
+        {
+          navigate('/login-password');
+        }
     } catch (error) {
-      setError('An error occurred. Please try again.');
-    } finally {
+      toast.error(error?.response?.data?.message)
+    } 
+    finally {
+      setEmail('');
       setIsLoading(false);
     }
   };
@@ -50,16 +52,13 @@ const LoginEmail = () => {
             <input
               id="email"
               type="email"
-              placeholder="you@gamil.com"
+              placeholder="abc@gamil.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
               required
             />
           </div>
-          {error && (
-            <p className="text-red-500 text-sm">{error}</p>
-          )}
           <button
             type="submit"
             className="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 flex items-center justify-center"
