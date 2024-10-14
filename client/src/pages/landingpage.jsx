@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, Zap, Lock, Menu, X, ArrowRight } from 'lucide-react';
 import logo from '../assets/logo.jpeg'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,10 +19,10 @@ const LandingPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
       <header className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-          <img src={logo} alt="chat app image " className="h-12 w-12" />
-          <span className="text-2xl font-bold text-indigo-600">BuzzChat</span>
-          </div>
+        <Link to="/" className="flex items-center gap-3">
+        <img src={logo} alt="chat app image" className="h-12 w-12" />
+        <span className="text-2xl font-bold text-indigo-600">BuzzChat</span>
+        </Link>
           <nav className={`${isMenuOpen ? 'block' : 'hidden'} md:block`}>
             <ul className="md:flex space-y-4 md:space-y-0 md:space-x-6 mt-4 md:mt-0 font-sans text-lg font-semibold ">
               <li><a href="#features" className="text-gray-700 hover:text-indigo-600 transition duration-300">Features</a></li>
@@ -94,20 +94,6 @@ const LandingPage = () => {
           </div>
         </section>
       </main>
-
-      <footer id="contact"className=" py-10 bg-gradient-to-br from-indigo-300 via-purple-400 to-pink-500 text-white py-3 flex ">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className=" flex gap-2 mt-3">
-            <img src={logo} alt="chat app image " className="h-12 w-12" />
-            <h3 className="text-2xl font-bold mt-2">BuzzChat</h3>
-            </div>
-          </div>
-          <div className="mt-8 text-center text-sm">
-            <p>&copy; 2024 BuzzChat. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
