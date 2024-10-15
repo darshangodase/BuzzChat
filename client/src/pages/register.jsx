@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserPlus, Upload, X } from 'lucide-react';
 import uploadFile from '../helpers/uploadFile';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 const RegisterPage = () => {
   const [data, setData] = useState({
@@ -15,8 +16,8 @@ const RegisterPage = () => {
 
   const [uploadPhoto, setUploadPhoto] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const user = useSelector(state => state.user);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -26,6 +27,12 @@ const RegisterPage = () => {
       [name]: value
     }));
   };
+  useEffect(()=>{
+    if(user.token)
+    {
+      navigate("/home")
+    }    
+  },[user.token])
 
   const handleUploadPhoto = async(e) => {
     const file = e.target.files[0];
@@ -38,12 +45,11 @@ const RegisterPage = () => {
       }
     })
   };
-
+  
   const handleClearUploadPhoto = (e) => {
     e.preventDefault();
     setUploadPhoto(null);
   };
-  
   
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginEmail = () => {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-
+  
   const handleRegister = () => {
     navigate('/register');
   };
+  const user = useSelector(state => state.user);
+  useEffect(()=>{
+    if(user.token)
+    {
+      navigate("/home")
+    }    
+  },[user.token])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

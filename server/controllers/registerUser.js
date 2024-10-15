@@ -5,7 +5,6 @@ async function registerUser(req, res) {
   try {
     const { name, email, password, profilePic } = req.body;
 
-    // Validate request body
     if (!name || !email || !password ) {
       return res.status(400).json({ message: 'All fields are required' });
     }

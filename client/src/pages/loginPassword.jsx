@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Lock } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { setToken } from '../redux/userSlice';
 
 const LoginPassword = () => {
@@ -16,10 +16,14 @@ const LoginPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
+    if(user.token)
+      {
+        navigate("/home")
+      }  
     const userId = location?.state?.userId;
-
     if (!userId) {
       navigate('/login-email');
     } else {
@@ -28,7 +32,7 @@ const LoginPassword = () => {
         userId: userId
       }));
     }
-  }, [location, navigate]);
+  }, [location, navigate, user.token]);
 
 
   const handleRegister = () => {
@@ -88,8 +92,8 @@ const LoginPassword = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
+            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-700">
+              Enter Password
             </label>
             <input
               id="password"
