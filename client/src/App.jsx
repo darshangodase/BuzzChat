@@ -9,6 +9,7 @@ function App() {
     <>
     <Toaster />
     <div className="">
+      
       <Outlet />
       <Footer />
     </div>
