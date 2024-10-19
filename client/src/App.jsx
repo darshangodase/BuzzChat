@@ -8,11 +8,11 @@ function App() {
   return (
     <>
     <Toaster />
-    <div className="">
+     <div className="">
       
       <Outlet />
-      <Footer />
-    </div>
+      {(location.pathname !== '/home' && !location.pathname.startsWith('/home/')) && <Footer />}
+     </div>
     </>
     
   )

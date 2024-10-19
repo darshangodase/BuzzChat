@@ -2,7 +2,7 @@ import React from 'react';
 
 function MessagePage() {
   return (
-    <div>
+    <div className='bg-slate-300 min-h-screen'>
       Message Page
     </div>
   );
