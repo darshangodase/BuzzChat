@@ -5,17 +5,20 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { BiLogOut } from "react-icons/bi";
 import { useDispatch, useSelector } from 'react-redux';
 // import EditUserDetails from './EditUserDetails';
-// import Divider from './Divider';
+import Divider from './Divider';
 import { FiArrowUpLeft } from "react-icons/fi";
 // import SearchUser from './SearchUser';
 import { FaImage } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa6";
+import { RxAvatar } from "react-icons/rx";
 import { logout } from '../redux/userSlice';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
 const Sidebar = () => {
     const user = useSelector(state => state?.user)
+    console.log(user);
+    
     const [allUser,setAllUser] = useState([])
     const [editUserOpen,setEditUserOpen] = useState(false)
     const [openSearchUser,setOpenSearchUser] = useState(false)
@@ -88,17 +91,17 @@ const Sidebar = () => {
                 </div>
 
                 <div className='flex flex-col items-center'>
-                    <button className='mx-auto' title={user?.name} onClick={()=>setEditUserOpen(true)}>
-                        
+                    <button className='w-12 h-12  flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded mx-auto' title={user?.name} onClick={()=>setEditUserOpen(true)}>
+                    <RxAvatar size={30}/>
                     </button>
                     <button title='logout' className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded' onClick={handleLogout}>
                         <span className='-ml-2'>
-                            <BiLogOut size={20}/>
+                            <BiLogOut size={25}/>
                         </span>
                     </button>
                 </div>
             </div>
-
+   
             <div className='w-full'>
                 <div className='h-16 flex items-center'>
                     <h2 className='text-xl font-bold p-4 text-slate-800'>Message</h2>
@@ -167,7 +170,6 @@ const Sidebar = () => {
                     }
                 </div>
             </div>
-
             {/**edit user details*/}
             {
                 editUserOpen && (
