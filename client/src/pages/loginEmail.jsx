@@ -13,6 +13,7 @@ const LoginEmail = () => {
   const handleRegister = () => {
     navigate('/register');
   };
+  
   const user = useSelector(state => state.user);
   useEffect(()=>{
     if(user.token)

@@ -11,7 +11,7 @@ const RegisterPage = () => {
     name: '',
     email: '',
     password: '',
-    profile_pic:''
+    profilePic:''
   });
 
   const [uploadPhoto, setUploadPhoto] = useState("");
@@ -41,7 +41,7 @@ const RegisterPage = () => {
     setData((preve)=>{
       return{
         ...preve,
-        profile_pic : uploadPhoto?.url
+        profilePic : uploadPhoto?.url
       }
     })
   };
@@ -65,7 +65,7 @@ const RegisterPage = () => {
               name : "",
               email : "",
               password : "",
-              profile_pic : ""
+              profilePic : ""
             })
             navigate('/login-email')
             setIsLoading(false);
@@ -78,7 +78,7 @@ const RegisterPage = () => {
           name : "",
           email : "",
           password : "",
-          profile_pic : ""
+          profilePic : ""
         })
         setUploadPhoto("");
     }
@@ -131,11 +131,11 @@ const RegisterPage = () => {
           </div>
 
           <div className="relative">
-            <label htmlFor="profile_pic" className="flex items-center justify-center w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm">
+            <label htmlFor="profilePic" className="flex items-center justify-center w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm">
             <input
               type="file"
-              id="profile_pic"
-              name="profile_pic"
+              id="profilePic"
+              name="profilePic"
               className="hidden"
               onChange={handleUploadPhoto}/>
               <Upload className="w-4 h-4 mr-2 text-gray-600" />

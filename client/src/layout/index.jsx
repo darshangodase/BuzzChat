@@ -37,14 +37,14 @@ function AuthLayouts({ children }) {
               BuzzChat
             </span>
           </Link>
-          {user.token && (
+          {/* {user.token && (
             <button
               onClick={handleLogout}
               className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
             >
               Logout
             </button>
-          )}
+          )} */}
         </div>
       </header>
       {children}

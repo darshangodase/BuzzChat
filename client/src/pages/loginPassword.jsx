@@ -24,9 +24,10 @@ const LoginPassword = () => {
         navigate("/home")
       }  
     const userId = location?.state?.userId;
-    if (!userId) {
+    if(!userId) {
       navigate('/login-email');
-    } else {
+    } else 
+    {
       setData((prevData) => ({
         ...prevData,
         userId: userId
