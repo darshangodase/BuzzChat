@@ -24,7 +24,8 @@ async function LoginPassword(req, res) {
 
     const cookieOptions = {
       httpOnly: true,
-      secure: true
+       sameSite: 'None',
+        secure: true 
     };
     return res
       .cookie('token', token, cookieOptions)
