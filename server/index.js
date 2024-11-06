@@ -12,7 +12,7 @@ connectDB();
 
 // All middlewares
 app.use(cors({
-    origin:" https://buzzchatapp.netlify.app",
+    origin:'https://buzzchatapp.netlify.app',
     credentials: true
 }));
 
