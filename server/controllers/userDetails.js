@@ -1,5 +1,4 @@
-const getUserDetails = require("../helpers/getuserdetails");
-
+const getUserDetails = require("../helpers/getUserDetails");
 async function userDetails(req, res) {
     try {
         const token = req.cookies.token;
