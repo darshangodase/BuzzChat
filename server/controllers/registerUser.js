@@ -4,7 +4,6 @@ const bcryptjs = require('bcryptjs');
 async function registerUser(req, res) {
   try {
     const { name, email, password, profilePic } = req.body;
-     console.log(profilePic);
      
     if (!name || !email || !password ) {
       return res.status(400).json({ message: 'All fields are required' });

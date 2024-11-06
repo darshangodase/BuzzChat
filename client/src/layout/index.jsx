@@ -28,7 +28,7 @@ function AuthLayouts({ children }) {
   };
 
   return (
-    <div>
+    <div className=''>
       <header className="py-3 px-5 bg-gradient-to-r from-rose-100 to-teal-100 shadow-inner">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">

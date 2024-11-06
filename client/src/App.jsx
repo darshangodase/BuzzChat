@@ -9,9 +9,7 @@ function App() {
     <>
     <Toaster />
      <div className="">
-      
       <Outlet />
-      {(location.pathname !== '/home' && !location.pathname.startsWith('/home/')) && <Footer />}
      </div>
     </>
     

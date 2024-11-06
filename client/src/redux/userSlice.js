@@ -6,6 +6,8 @@ const initialState = {
   email: "",
   profilePic: "",
   token: "",
+  onlineUser : [],
+  socketConnection : null
 };
 
 export const userSlice = createSlice({
@@ -17,6 +19,7 @@ export const userSlice = createSlice({
       state.name = action.payload.name;
       state.email = action.payload.email;
       state.profilePic = action.payload.profilePic;
+      
     },
     setToken: (state, action) => {
       state.token = action.payload;
@@ -27,10 +30,17 @@ export const userSlice = createSlice({
       state.email = "";
       state.profilePic= "";
       state.token = "";
+      state.socketConnection = null;
     },
+    setOnlineUser : (state,action)=>{
+      state.onlineUser = action.payload
+    },
+    setSocketConnection : (state,action)=>{
+      state.socketConnection = action.payload
+    }
   },
 });
 
-export const { setUser, setToken, logout } = userSlice.actions;
+export const { setUser, setToken, logout,setOnlineUser,setSocketConnection  } = userSlice.actions;
 
 export default userSlice.reducer;

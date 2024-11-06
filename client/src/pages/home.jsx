@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { logout, setUser } from '../redux/userSlice';
+import { logout, setOnlineUser, setSocketConnection, setUser} from '../redux/userSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Sidebar from '../components/Sidebar';
 import logo from '../assets/logo.jpeg';
+import io from 'socket.io-client'
 
 const Home = () => {
   const user = useSelector(state => state.user);
@@ -35,17 +36,38 @@ const Home = () => {
     fetchUserDetails();
   }, [user]);
 
-  const basePath = location.pathname === '/home';
+   /***socket connection */
 
+   useEffect(() => {
+    const socketConnection = io(import.meta.env.VITE_BACKEND_URL, {
+      auth: {
+        token: localStorage.getItem('token')
+      },
+    });
+
+     socketConnection.on('onlineUser', (data) => {
+      // console.log(data);
+      dispatch(setOnlineUser(data));
+    });
+
+    dispatch(setSocketConnection(socketConnection));
+
+    return () => {
+      socketConnection.disconnect();
+    };
+  }, []);
+
+  const basePath = location.pathname === '/home';
+  
   return (
     <div className='grid lg:grid-cols-[420px,1fr] h-screen max-h-screen'>
-      <section className={`bg-white ${!basePath && "hidden"} lg:block`}>
-        <Sidebar />
-      </section>
-      <section className={`${basePath && "hidden"}`}>
-        <Outlet />
-      </section>
-
+        <section className={`bg-white ${!basePath && "hidden"} lg:block`}>
+         <Sidebar />
+        </section>
+        <section className={`${basePath && "hidden"}`}>
+         <Outlet />
+        </section>
+ 
       {basePath && (
         <div className='bg-slate-200 justify-center items-center flex-col gap-2 hidden lg:flex'>
           <div>

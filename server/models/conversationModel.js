@@ -1,54 +1,62 @@
-const mongose= require('mongoose');
+const mongoose = require('mongoose')
 
-const messageSchema = new mongose.Schema({
-    text: {
-        type: string,
-        default:""
+const messageSchema = new mongoose.Schema({
+    text : {
+        type : String,
+        default : ""
     },
-    imageURL: {
-        type: String,
-        default:""
+    imageUrl : {
+        type : String,
+        default : ""
     },
-    vedioURL: {
-        type: String,
-        default:""
+    videoUrl : {
+        type : String,
+        default : ""
     },
-    seen:
-    {
-        type: Boolean,
-        default: false
+    seen : {
+        type : Boolean,
+        default : false
+    },
+    receiverId: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        required : true,
+        ref: 'User' 
+    }, 
+
+    msgByUserId : {
+        type : mongoose.Schema.ObjectId,
+        required : true,
+        ref : 'User'
     }
-},
-{
-    timestamps: true
-});
-
-const conversationSchema=new mongose.Schema({
-     sender: {
-        type: mongose.schema.ObjectsId,
-        required: true,
-        ref: 'User'
-
-     },
-     receiver: {
-        type: mongose.schema.ObjectsId,
-        required: true,
-        ref: 'User'
-     },
-     messages:[
-        {
-        type: mongose.schema.ObjectsId,
-        ref: 'Message'
-        }
-     ]
-     
 },{
-    timestamps: true
-});
-const MessageModel = new mongose.model('Message', messageSchema);
-const ConversationModel = new mongose.model('Conversation', conversationSchema);
+    timestamps : true
+})
+
+const conversationSchema = new mongoose.Schema({
+    sender : {
+        type : mongoose.Schema.ObjectId,
+        required : true,
+        ref : 'User'
+    },
+    receiver : {
+        type : mongoose.Schema.ObjectId,
+        required : true,
+        ref : 'User'
+    },
+    messages : [
+        {
+            type : mongoose.Schema.ObjectId,
+            ref : 'Message'
+        }
+    ]
+},{
+    timestamps : true
+})
+
+const MessageModel = mongoose.model('Message',messageSchema)
+const ConversationModel = mongoose.model('Conversation',conversationSchema)
 
 module.exports = {
     MessageModel,
     ConversationModel
-};
+}

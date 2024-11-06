@@ -62,8 +62,10 @@ const EditUserDetails = ({ onClose, user }) => {
     e.preventDefault();
     e.stopPropagation();
     try {
+      
       const URL = `${import.meta.env.VITE_BACKEND_URL}/api/update`;
-      const response = await axios.post(URL, data, { withCredentials: true });
+      const { name, profilePic } = data; // Extract only the necessary fields
+      const response = await axios.post(URL,  { name, profilePic }, { withCredentials: true });
       toast.success(response?.data?.message);
 
       if (response.data.success) {
@@ -71,7 +73,8 @@ const EditUserDetails = ({ onClose, user }) => {
         onClose();
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      
       toast.error('Failed to update user details');
     }
   };
@@ -100,7 +103,7 @@ const EditUserDetails = ({ onClose, user }) => {
               <img
                 src={data.profilePic}
                 alt='Profile'
-                className='w-10 h-10 rounded-full border border-gray-300'
+                className='w-10 h-10 rounded-full border border-gray-700'
               />
               <label htmlFor='profilePic' className='flex items-center justify-center w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-primary transition'>
                 <input

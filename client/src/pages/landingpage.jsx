@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { MessageCircle, Zap, Lock, Menu, X, ArrowRight } from 'lucide-react';
+import { MessageCircle, Zap, Lock, Menu, X } from 'lucide-react';
 import logo from '../assets/logo.jpeg'
 import { useNavigate,Link } from 'react-router-dom';
+import Footer from '../components/footer';
 
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -92,6 +93,7 @@ const LandingPage = () => {
           </div>
         </section>
       </main>
+      <Footer />
     </div>
   );
 };

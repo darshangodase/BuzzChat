@@ -6,7 +6,7 @@ async function updateUserDetails(request, response) {
     const token = request.cookies.token || "";
     const user = await getUserDetails(token);
     const { name, profilePic } = request.body;
-   
+    
     const updateUser = await UserModel.updateOne({ _id: user._id }, {
       name,
       profilePic

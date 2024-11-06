@@ -36,8 +36,8 @@ const SearchUser = ({ onClose }) => {
   };
 
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 bg-gray-700 bg-opacity-40 flex justify-center items-center z-10'>
-      <div className='bg-white p-4 py-6 m-5 rounded-lg shadow-lg w-full max-w-sm relative'>
+    <div className='fixed inset-0 bg-gray-700 bg-opacity-40 flex justify-center items-center z-10'>
+      <div className='bg-white p-4 py-6 m-5 rounded-lg shadow-lg w-full max-w-sm relative overflow-y-auto scrollbar max-h-[90vh]'>
         <button onClick={onClose} className='absolute top-2 right-2 text-gray-500 hover:text-red-500'>
           <X className='w-6 h-6' />
         </button>
@@ -50,7 +50,7 @@ const SearchUser = ({ onClose }) => {
             placeholder='Search users by name or email'
             className='w-full py-2 px-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary'
           />
-          <button type='submit' className='w-full py-2 px-4 bg-teal-400 font-semibold rounded-md hover:bg-teal-500 transition duration-300 ease-in-out'>
+          <button type='submit' className='w-full py-2 px-4 bg-primary bg-teal-400 font-semibold rounded-md hover:bg-primary-dark transition duration-300 ease-in-out'>
             Search
           </button>
         </form>
@@ -60,9 +60,13 @@ const SearchUser = ({ onClose }) => {
               <AiOutlineLoading3Quarters className='animate-spin w-8 h-8 text-gray-600' />
             </div>
           ) : (
-            searchResults.map((user) => (
-              <UserSearchCard key={user._id} user={user} onClose={onClose} />
-            ))
+            searchResults.length > 0 ? (
+              searchResults.map((user) => (
+                <UserSearchCard key={user._id} user={user} onClose={onClose} />
+              ))
+            ) : (
+              <p className='text-center text-gray-500'>No users found</p>
+            )
           )}
         </div>
       </div>

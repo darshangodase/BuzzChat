@@ -5,14 +5,18 @@ import uploadFile from '../helpers/uploadFile';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const RegisterPage = () => {
   const [data, setData] = useState({
     name: '',
     email: '',
     password: '',
-    profilePic:''
+    profilePic: ''
   });
+  
+  const [loading, setLoading] = useState(false);
+  const [uploadLoading, setUploadLoading] = useState(false);
 
   const [uploadPhoto, setUploadPhoto] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,66 +25,63 @@ const RegisterPage = () => {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-
     setData(prevData => ({
       ...prevData,
       [name]: value
     }));
   };
-  useEffect(()=>{
-    if(user.token)
-    {
-      navigate("/home")
-    }    
-  },[user.token])
 
-  const handleUploadPhoto = async(e) => {
+  useEffect(() => {
+    if (user.token) {
+      navigate("/home");
+    }
+  }, [user.token]);
+
+  const handleUploadPhoto = async (e) => {
     const file = e.target.files[0];
-    const uploadPhoto = await uploadFile(file)
-    setUploadPhoto(file);
-    setData((preve)=>{
-      return{
-        ...preve,
-        profilePic : uploadPhoto?.url
-      }
-    })
+    setUploadLoading(true);
+
+    try {
+      const uploadResult = await uploadFile(file);
+      setUploadPhoto(file);
+      setData(prev => ({
+        ...prev,
+        profilePic: uploadResult?.url
+      }));
+    } finally {
+      setUploadLoading(false);
+    }
   };
-  
+
   const handleClearUploadPhoto = (e) => {
     e.preventDefault();
     setUploadPhoto(null);
+    setData(prev => ({ ...prev, profilePic: '' }));
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const URL = `${import.meta.env.VITE_BACKEND_URL}/api/register`
+    const URL = `${import.meta.env.VITE_BACKEND_URL}/api/register`;
     try {
-        const response = await axios.post(URL,data)
-        toast.success(response.data.message)
-        if(response.data.success)
-          {
-            setData({
-              name : "",
-              email : "",
-              password : "",
-              profilePic : ""
-            })
-            navigate('/login-email')
-            setIsLoading(false);
-            setUploadPhoto("");
-          }
-    } catch (error) {
-        toast.error(error?.response?.data?.message)
-        setIsLoading(false);
+      const response = await axios.post(URL, data);
+      toast.success(response.data.message);
+      if (response.data.success) {
         setData({
-          name : "",
-          email : "",
-          password : "",
-          profilePic : ""
-        })
+          name: "",
+          email: "",
+          password: "",
+          profilePic: ""
+        });
+        navigate('/login-email');
         setUploadPhoto("");
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
+      setUploadPhoto("");
     }
   };
 
@@ -132,19 +133,22 @@ const RegisterPage = () => {
 
           <div className="relative">
             <label htmlFor="profilePic" className="flex items-center justify-center w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-1 focus:ring-purple-500 text-sm">
-            <input
-              type="file"
-              id="profilePic"
-              name="profilePic"
-              className="hidden"
-              onChange={handleUploadPhoto}/>
+              <input
+                type="file"
+                id="profilePic"
+                name="profilePic"
+                className="hidden"
+                onChange={handleUploadPhoto}
+              />
               <Upload className="w-4 h-4 mr-2 text-gray-600" />
               <span className="text-gray-600 truncate">
-                {uploadPhoto ? uploadPhoto.name : "Upload profile photo"}
+                {uploadLoading ? (
+                  <AiOutlineLoading3Quarters className="animate-spin text-gray-600" />
+                ) : uploadPhoto ? uploadPhoto.name : "Upload profile photo"}
               </span>
             </label>
 
-            {uploadPhoto && (
+            {uploadPhoto && !uploadLoading && (
               <button
                 onClick={handleClearUploadPhoto}
                 className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-red-500"
@@ -156,16 +160,15 @@ const RegisterPage = () => {
           <button
             type="submit"
             className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 flex items-center justify-center text-sm"
-            disabled={isLoading}>
+            disabled={isLoading || uploadLoading}
+          >
             {isLoading ? (
               <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
             ) : (
-              <>
-                Create Account
-              </>
+              "Create Account"
             )}
           </button>
         </form>
@@ -178,7 +181,6 @@ const RegisterPage = () => {
             </Link>
           </p>
         </div>
-
       </div>
     </div>
   );
