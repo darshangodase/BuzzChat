@@ -1,4 +1,4 @@
-const getUserDetails = require("../helpers/getuserdetails");
+const getUserDetails = require("../helpers/getUserDetails");
 const UserModel = require("../models/userModel");
 
 async function updateUserDetails(request, response) {
