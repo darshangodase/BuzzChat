@@ -11,7 +11,7 @@ const getUserDetailsFromToken= require('../helpers/getUserDetails')
 const server = http.createServer(app)
 const io = new Server(server,{
     cors : {
-        origin : process.env.FRONTEND_URL,
+        origin : 'https://buzzchatapp.netlify.app',
         credentials : true
     }
 })
