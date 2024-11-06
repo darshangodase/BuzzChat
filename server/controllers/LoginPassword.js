@@ -20,7 +20,7 @@ async function LoginPassword(req, res) {
       id: user._id,
       email: user.email
     };
-    const token = await jwt.sign(tokendata, process.env.SECRET_KEY);
+    const token = jwt.sign(tokendata, process.env.SECRET_KEY);
 
     const cookieOptions = {
       httpOnly: true,
